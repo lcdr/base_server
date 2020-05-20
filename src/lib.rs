@@ -1,7 +1,7 @@
 pub mod listeners;
 pub mod server;
 mod tcpudp;
-#[cfg(feature="tls")] mod tls;
+#[cfg(feature="tls")] pub mod tls;
 
 #[cfg(feature="tls")] use std::sync::Arc;
 
