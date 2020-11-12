@@ -5,6 +5,7 @@ use std::net::{IpAddr, Ipv4Addr};
 
 use lu_packets::{
 	common::ServiceId,
+	raknet::SystemAddress,
 	raknet::client::{ConnectedPong, ConnectionRequestAccepted},
 	general::client::Handshake as OutHandshake,
 	raknet::server::{ConnectionRequest, InternalPing},
@@ -54,10 +55,8 @@ pub fn on_conn_req<I, O>(conn_req: &ConnectionRequest, ctx: &mut C<I, O>)
 	let local_addr = ctx.local_addr().unwrap();
 	let local_ip = get_ipv4(local_addr.ip());
 	let message = ConnectionRequestAccepted {
-		peer_ip,
-		peer_port: peer_addr.port(),
-		local_ip,
-		local_port: local_addr.port()
+		peer_addr : SystemAddress { ip: peer_ip, port: peer_addr.port() },
+		local_addr : SystemAddress { ip: local_ip, port: local_addr.port() },
 	};
 	ctx.send(message).unwrap();
 }
