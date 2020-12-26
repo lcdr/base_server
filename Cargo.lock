@@ -76,7 +76,7 @@ dependencies = [
 [[package]]
 name = "endio"
 version = "0.2.0"
-source = "git+https://github.com/lcdr/endio?rev=9981948f5cb6d78dba3c5115d1f3459918a64133#9981948f5cb6d78dba3c5115d1f3459918a64133"
+source = "git+https://github.com/lcdr/endio?rev=6e988eed6d9d3b1fa0edde34062edfb3b01d344a#6e988eed6d9d3b1fa0edde34062edfb3b01d344a"
 dependencies = [
  "endio_derive",
 ]
@@ -89,7 +89,7 @@ source = "git+https://github.com/lcdr/endio_bit?rev=46b1b0eda359dd85b5eabf9714e8
 [[package]]
 name = "endio_derive"
 version = "0.2.0"
-source = "git+https://github.com/lcdr/endio?rev=9981948f5cb6d78dba3c5115d1f3459918a64133#9981948f5cb6d78dba3c5115d1f3459918a64133"
+source = "git+https://github.com/lcdr/endio?rev=6e988eed6d9d3b1fa0edde34062edfb3b01d344a#6e988eed6d9d3b1fa0edde34062edfb3b01d344a"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -153,7 +153,7 @@ dependencies = [
 [[package]]
 name = "lu_packets"
 version = "0.1.0"
-source = "git+https://github.com/lcdr/lu_packets?rev=f11fdd7d50109602f7abdeacf78452376b9adbde#f11fdd7d50109602f7abdeacf78452376b9adbde"
+source = "git+https://github.com/lcdr/lu_packets?rev=92331a88930b884db093bb4dc683ddd8d8de7c3e#92331a88930b884db093bb4dc683ddd8d8de7c3e"
 dependencies = [
  "endio",
  "endio_bit",
@@ -164,7 +164,7 @@ dependencies = [
 [[package]]
 name = "lu_packets_derive"
 version = "0.1.0"
-source = "git+https://github.com/lcdr/lu_packets?rev=f11fdd7d50109602f7abdeacf78452376b9adbde#f11fdd7d50109602f7abdeacf78452376b9adbde"
+source = "git+https://github.com/lcdr/lu_packets?rev=92331a88930b884db093bb4dc683ddd8d8de7c3e#92331a88930b884db093bb4dc683ddd8d8de7c3e"
 dependencies = [
  "proc-macro2",
  "quote",

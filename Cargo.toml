@@ -17,5 +17,5 @@ serde = { version = "1.0", features = ["derive"] }
 rustls = { version = "0.16.0", optional = true }
 webpki = { version = "0.21.2", optional = true }
 webpki-roots = { version = "0.18.0", optional = true }
-endio = { git = "https://github.com/lcdr/endio", rev = "9981948f5cb6d78dba3c5115d1f3459918a64133" }
-lu_packets = { git = "https://github.com/lcdr/lu_packets", rev = "f11fdd7d50109602f7abdeacf78452376b9adbde" }
+endio = { git = "https://github.com/lcdr/endio", rev = "6e988eed6d9d3b1fa0edde34062edfb3b01d344a" }
+lu_packets = { git = "https://github.com/lcdr/lu_packets", rev = "92331a88930b884db093bb4dc683ddd8d8de7c3e" }
