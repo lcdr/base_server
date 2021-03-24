@@ -18,4 +18,4 @@ rustls = { version = "0.16.0", optional = true }
 webpki = { version = "0.21.2", optional = true }
 webpki-roots = { version = "0.18.0", optional = true }
 endio = { git = "https://github.com/lcdr/endio", rev = "6e988eed6d9d3b1fa0edde34062edfb3b01d344a" }
-lu_packets = { git = "https://github.com/lcdr/lu_packets", rev = "fa5b7cfc916ce8725255ad0fc5178608b85fa04a" }
+lu_packets = { git = "https://github.com/lcdr/lu_packets", rev = "7c86c784d763e8653d6b38022b1c44add9b5c32e" }
