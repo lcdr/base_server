@@ -1,6 +1,7 @@
 //! Message listeners responsible for the behavior of the server in response to incoming messages.
 use lu_packets;
 
+use std::io::Result as Res;
 use std::net::{IpAddr, Ipv4Addr};
 
 use lu_packets::{
@@ -18,12 +19,12 @@ use endio::{Deserialize, Serialize};
 use endio::LittleEndian as LE;
 
 /// Sends back a pong with the same timestamp.
-pub fn on_internal_ping<I, O>(ping: &InternalPing, ctx: &mut C<I, O>)
+pub fn on_internal_ping<I, O>(ping: &InternalPing, ctx: &mut C<I, O>) -> Res<()>
 	where
 		for<'a> I: Deserialize<LE, &'a [u8]>,
 		for<'b> &'b O: Serialize<LE, Vec<u8>>,
 	O: From<ConnectedPong> {
-	ctx.send(ConnectedPong { ping_send_time: ping.send_time }).unwrap();
+	ctx.send(ConnectedPong { ping_send_time: ping.send_time })
 }
 
 /// Helper function to convert IPv6 addresses to equivalent IPv4 addresses if possible, or panic otherwise.
@@ -41,14 +42,14 @@ fn get_ipv4(ip: IpAddr) -> Ipv4Addr {
 }
 
 /// Sends back a connection request accepted message with local address and remote address.
-pub fn on_conn_req<I, O>(conn_req: &ConnectionRequest, ctx: &mut C<I, O>)
+pub fn on_conn_req<I, O>(conn_req: &ConnectionRequest, ctx: &mut C<I, O>) -> Res<()>
 	where
 		for<'a> I: Deserialize<LE, &'a [u8]>,
 		for<'b> &'b O: Serialize<LE, Vec<u8>>,
 		O: From<ConnectionRequestAccepted> {
 	if *conn_req.password != b"3.25 ND1"[..] {
 		ctx.close_conn();
-		return;
+		return Ok(());
 	};
 	let peer_addr = ctx.peer_addr().unwrap();
 	let peer_ip = get_ipv4(peer_addr.ip());
@@ -58,13 +59,13 @@ pub fn on_conn_req<I, O>(conn_req: &ConnectionRequest, ctx: &mut C<I, O>)
 		peer_addr : SystemAddress { ip: peer_ip, port: peer_addr.port() },
 		local_addr : SystemAddress { ip: local_ip, port: local_addr.port() },
 	};
-	ctx.send(message).unwrap();
+	ctx.send(message)
 }
 
 /**
 	Checks for network version and service ID, closing the connection if either doesn't match, otherwise sends back our own network version and service ID.
 */
-pub fn on_handshake<I, O>(inc_handshake: &IncHandshake, ctx: &mut C<I, O>, service_id: ServiceId)
+pub fn on_handshake<I, O>(inc_handshake: &IncHandshake, ctx: &mut C<I, O>, service_id: ServiceId) -> Res<()>
 	where
 		for<'a> I: Deserialize<LE, &'a [u8]>,
 		for<'b> &'b O: Serialize<LE, Vec<u8>>,
@@ -74,16 +75,16 @@ pub fn on_handshake<I, O>(inc_handshake: &IncHandshake, ctx: &mut C<I, O>, servi
 	if inc_handshake.network_version != NETWORK_VERSION {
 		println!("wrong network version {}", inc_handshake.network_version);
 		ctx.close_conn();
-		return;
+		return Ok(());
 	}
 	if inc_handshake.service_id != ServiceId::Client {
 		println!("wrong service id {:?}", inc_handshake.service_id);
 		ctx.close_conn();
-		return;
+		return Ok(());
 	}
 	let message = OutHandshake {
 		network_version: NETWORK_VERSION,
 		service_id,
 	};
-	ctx.send(message).unwrap();
+	ctx.send(message)
 }
